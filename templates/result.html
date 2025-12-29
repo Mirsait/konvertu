@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>konvertu : {{ .Title}}</title>
+        <link rel="stylesheet" href="/public/style.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <h2>konvertu</h2>
+            <nav>
+                <ul>
+                <li><a href="/length" {{if eq .Title "length"}} class="active"{{end}}>length</a></li>
+                <li><a href="/weight" {{if eq .Title "weight"}} class="active"{{end}}>weight</a></li>
+                <li><a href="/temperature" {{if eq .Title "temperature"}} class="active"{{end}}>temperature</a></li>
+                </ul>
+            </nav>
+            <p>Result of your {{.Title}} conversion</p>
+            <p>{{ .FromValue}} {{ .FromUnit}} = {{ .ToValue}} {{ .ToUnit}}</p>
+            <a class="button" href="/{{.Title}}">back</a>
+        </div>
+    </body>
+</html>
