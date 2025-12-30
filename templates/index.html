@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>konvertu : {{ .Title}}</title>
+        <link rel="stylesheet" href="/public/style.css"/>
+    </head>
+    <body>
+        <div class="container">
+        <form class="form" method="POST" action="result">
+            <h2>konvertu</h2>
+            <nav>
+                <ul>
+                <li><a href="/length" {{if eq .Title "length"}} class="active"{{end}}>length</a></li>
+                <li><a href="/weight" {{if eq .Title "weight"}} class="active"{{end}}>weight</a></li>
+                <li><a href="/temperature" {{if eq .Title "temperature"}} class="active"{{end}}>temperature</a></li>
+                </ul>
+            </nav>
+
+            <input type="hidden" name="page" value={{.Title}}>
+
+            <label for="value">enter the length to convert</label>
+            <input type="text"
+                inputmode="numeric" pattern="-?\d*\.?\d*"
+                id="value" name="value" placeholder="0.0"/>
+
+            <label for="fromUnit">unit to convert from</label>
+            <select id="fromUnit" name="fromUnit">
+                {{range .Units}}
+                <option value="{{.}}">{{.}}</option>
+                {{end}}
+            </select>
+
+            <label for="toUnit">unit to convert to</label>
+            <select id="toUnit" name="toUnit">
+                {{range .Units}}
+                <option value="{{.}}">{{.}}</option>
+                {{end}}
+            </select>
+
+            <button name="convert" type="submit">convert</button>
+        </form>
+        </div>
+    </body>
+</html>
