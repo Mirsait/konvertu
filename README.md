@@ -8,6 +8,10 @@ units, and instantly view the converted result. The application supports a wide
 range of unit categories including length, weight, volume, area, temperature, 
 and more.
 
+![konvertu screenshot](screenshot.png)
+
+[roadmap.sh](https://roadmap.sh/projects/unit-converter)
+
 ## Features
 - User-friendly web interface.
 - Conversion between multiple unit categories:
