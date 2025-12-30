@@ -20,7 +20,9 @@
             <input type="hidden" name="page" value={{.Title}}>
 
             <label for="value">enter the length to convert</label>
-            <input type="text" id="value" name="value" />
+            <input type="text"
+                inputmode="numeric" pattern="-?\d*\.?\d*"
+                id="value" name="value" placeholder="0.0"/>
 
             <label for="fromUnit">unit to convert from</label>
             <select id="fromUnit" name="fromUnit">
