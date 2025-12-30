@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
 func main() {
@@ -11,9 +12,7 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := ViewData{
 			Title: "length",
-			Units: []string{
-				"millimeter", "centimeter", "meter", "kilometer",
-				"foot", "inch", "yard", "mile"},
+			Units: getNames(Length),
 		}
 		tmpl, _ := template.ParseFiles("templates/index.html")
 		tmpl.Execute(w, data)
@@ -22,7 +21,7 @@ func main() {
 	http.HandleFunc("/temperature", func(w http.ResponseWriter, r *http.Request) {
 		data := ViewData{
 			Title: "temperature",
-			Units: []string{"celcius", "kelvin", "fahrenheit"},
+			Units: getNames(Temperature),
 		}
 		tmpl, _ := template.ParseFiles("templates/index.html")
 		tmpl.Execute(w, data)
@@ -31,7 +30,7 @@ func main() {
 	http.HandleFunc("/weight", func(w http.ResponseWriter, r *http.Request) {
 		data := ViewData{
 			Title: "weight",
-			Units: []string{"milligram", "gram", "kilogram", "ounce", "pound"},
+			Units: getNames(Mass),
 		}
 		tmpl, _ := template.ParseFiles("templates/index.html")
 		tmpl.Execute(w, data)
@@ -42,12 +41,17 @@ func main() {
 		toUnit := r.FormValue("toUnit")
 		value := r.FormValue("value")
 		prevPage := r.FormValue("page")
+
+		val, _ := strconv.ParseFloat(value, 64)
+
+		result, _ := Convert(val, fromUnit, toUnit)
+
 		data := ResultData{
 			Title:     prevPage,
-			FromUnit:  fromUnit,
-			ToUnit:    toUnit,
-			FromValue: value,
-			ToValue:   "100",
+			FromUnit:  getSymbol(fromUnit),
+			ToUnit:    getSymbol(toUnit),
+			FromValue: fmt.Sprintf("%.2f", val),
+			ToValue:   fmt.Sprintf("%.2f", result),
 		}
 		tmpl, _ := template.ParseFiles("templates/result.html")
 		tmpl.Execute(w, data)
